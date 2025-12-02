@@ -1,0 +1,2320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ACPP – Athletic Cognitive Performance Program</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-main: #04080f;
+      --bg-elevated: #081423;
+      --bg-soft: #0c1b33;
+      --primary: #3b82f6;
+      --primary-soft: rgba(59, 130, 246, 0.18);
+      --accent: #60a5fa;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --danger: #f97373;
+      --card-radius: 18px;
+      --shadow-soft: 0 18px 40px rgba(6, 12, 28, 0.85);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #0b1f3a 0, #04080f 42%, #04080f 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page-wrap { max-width: 1180px; margin: 0 auto; padding: 20px 18px 60px; }
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.95), rgba(2, 6, 23, 0.7));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .nav-inner {
+      max-width: 1180px; margin: 0 auto; padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo-mark { display: flex; align-items: center; gap: 10px; }
+    .logo-symbol {
+      width: 34px; height: 34px; border-radius: 999px;
+      background: conic-gradient(from 200deg, #22c55e, #38bdf8, #6366f1, #22c55e);
+      padding: 2px; position: relative;
+    }
+    .logo-symbol::after {
+      content: ""; position: absolute; inset: 2px; border-radius: inherit;
+      background: radial-gradient(circle at 30% 0, rgba(255, 255, 255, 0.3), rgba(15, 23, 42, 1) 55%);
+    }
+    .logo-text-main { font-weight: 700; letter-spacing: 0.12em; font-size: 0.9rem; text-transform: uppercase; }
+    .logo-text-sub { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.16em; }
+    nav ul {
+      list-style: none; display: flex; gap: 18px;
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em;
+    }
+    nav a {
+      padding-bottom: 4px; border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    nav a:hover, nav a.active { color: #f9fafb; border-color: var(--primary); }
+    .hero {
+      display: grid; grid-template-columns: minmax(0, 3.2fr) minmax(0, 2.8fr);
+      gap: 32px; margin-top: 28px; align-items: center;
+    }
+    .hero-left-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.18em;
+      background: rgba(15, 23, 42, 0.9); padding: 6px 12px; border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5); margin-bottom: 14px;
+    }
+    .hero-left-badge span {
+      width: 7px; height: 7px; border-radius: 999px; background: var(--accent);
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.95);
+    }
+    h1.hero-title {
+      font-size: clamp(2.4rem, 3vw + 1.1rem, 3.1rem);
+      line-height: 1.05; margin-bottom: 14px;
+    }
+    h1.hero-title span { color: #bfdbfe; }
+    .hero-subtitle {
+      font-size: 0.94rem; color: var(--text-muted);
+      max-width: 470px; margin-bottom: 22px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px 20px; border-radius: 999px; border: 1px solid transparent;
+      font-size: 0.86rem; font-weight: 500; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(to right, #1d4ed8, #2563eb, #38bdf8);
+      color: #f9fafb;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.55);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 18px 45px rgba(37, 99, 235, 0.8); }
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.8); color: var(--text-main);
+      border-color: rgba(148, 163, 184, 0.55);
+    }
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 1); border-color: var(--primary); transform: translateY(-1px);
+    }
+    .hero-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-muted); }
+    .hero-visual { position: relative; isolation: isolate; }
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at top left, rgba(239, 246, 255, 0.12), rgba(15, 23, 42, 0.95));
+      border-radius: 26px; padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.6); box-shadow: var(--shadow-soft);
+      overflow: hidden; min-height: 260px;
+    }
+    .hero-card-tag {
+      font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted);
+      letter-spacing: 0.18em; margin-bottom: 10px;
+    }
+    .hero-card-title {
+      font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.18em;
+      color: #e5e7eb; margin-bottom: 4px;
+    }
+    .hero-card-metric { font-size: 1.7rem; font-weight: 600; margin-bottom: 16px; }
+    .hero-card-metric span { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+    .hero-stats-row { display: flex; gap: 10px; margin-bottom: 16px; font-size: 0.75rem; }
+    .hero-stat-pill {
+      flex: 1; padding: 8px 9px; border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .hero-stat-label { color: var(--text-muted); font-size: 0.7rem; }
+    .hero-stat-value { font-weight: 500; }
+    .hero-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.75rem; color: var(--text-muted);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px;
+      border-radius: 999px; background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(34, 197, 94, 0.6); color: #bbf7d0; font-size: 0.7rem;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px; border-radius: 999px;
+      background: var(--accent); box-shadow: 0 0 12px rgba(34, 197, 94, 1);
+    }
+    .hero-image-abstract {
+      position: absolute; inset: auto 0 0 auto;
+      width: 72%; height: 58%; margin-right: -22px; margin-bottom: -18px;
+      background:
+        radial-gradient(circle at top left, rgba(248, 250, 252, 0.25), transparent 45%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.35), transparent 55%),
+        linear-gradient(125deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98));
+      clip-path: polygon(0 8%, 60% 0, 100% 24%, 90% 100%, 8% 100%);
+      border-top: 1px solid rgba(148, 163, 184, 0.6);
+      border-left: 1px solid rgba(148, 163, 184, 0.3);
+      opacity: 0.9;
+    }
+    .hero-image-inner-lines {
+      position: absolute; inset: 12% 12% 10% 10%;
+      border-radius: 26px;
+      background-image: repeating-linear-gradient(
+        -20deg,
+        rgba(15, 23, 42, 0.1) 0px,
+        rgba(15, 23, 42, 0.1) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+      mix-blend-mode: soft-light; opacity: 0.75;
+    }
+    .hero-ambient-orb {
+      position: absolute; width: 160px; height: 160px; border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.5), transparent 60%);
+      top: -40px; right: -50px; filter: blur(2px); opacity: 0.8; pointer-events: none;
+    }
+    .stats-strip {
+      margin-top: 24px;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+    }
+    .stat-card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 9px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+    .stat-card strong { color: #e5e7eb; font-weight: 600; }
+    .stat-pill {
+      padding: 4px 9px; border-radius: 999px; font-size: 0.7rem;
+      background: rgba(37, 99, 235, 0.1); color: #bfdbfe;
+    }
+    section {
+      margin-top: 42px; padding: 26px 22px;
+      border-radius: 26px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-soft);
+    }
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 12px; margin-bottom: 16px;
+    }
+    .section-kicker {
+      text-transform: uppercase; font-size: 0.72rem;
+      letter-spacing: 0.18em; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .section-title { font-size: 1.25rem; font-weight: 600; }
+    .section-subtitle {
+      font-size: 0.86rem; color: var(--text-muted); max-width: 460px;
+    }
+    .mission-grid {
+      display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 2fr); gap: 22px;
+    }
+    .mission-block {
+      background: radial-gradient(circle at top left, var(--primary-soft), rgba(15, 23, 42, 0.96));
+      padding: 16px 16px 15px; border-radius: var(--card-radius);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+    .mission-label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--text-muted); margin-bottom: 4px;
+    }
+    .mission-body { font-size: 0.92rem; font-weight: 500; }
+    .values-list {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px; margin-top: 4px;
+    }
+    .value-pill {
+      padding: 9px 10px; border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center;
+    }
+    .value-pill span { color: var(--text-muted); font-size: 0.72rem; }
+    .about-grid {
+      display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 2fr);
+      gap: 22px; align-items: flex-start;
+    }
+    .about-tagline { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; }
+    .about-p { font-size: 0.86rem; color: var(--text-main); margin-bottom: 8px; }
+    .about-list { margin-top: 8px; font-size: 0.84rem; color: var(--text-muted); }
+    .about-list li {
+      margin-bottom: 4px; list-style: none; position: relative; padding-left: 14px;
+    }
+    .about-list li::before { content: "•"; position: absolute; left: 0; color: var(--primary); }
+    .about-visual {
+      position: relative; border-radius: 22px; padding: 16px;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.2), transparent 55%),
+        linear-gradient(130deg, #020617, #020617 40%, #111827 100%);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      overflow: hidden; min-height: 210px;
+    }
+    .about-visual-title {
+      font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 10px;
+    }
+    .about-visual-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;
+      font-size: 0.78rem;
+    }
+    .about-chip {
+      background: rgba(15, 23, 42, 0.9); border-radius: 12px;
+      padding: 10px 9px; border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+    .about-chip-label {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--text-muted); margin-bottom: 3px;
+    }
+    .about-chip strong { font-size: 0.86rem; }
+    .about-visual-lines {
+      position: absolute; inset: 55% -80px -40px 40%;
+      background-image: linear-gradient(
+        120deg,
+        rgba(37, 99, 235, 0.45),
+        rgba(56, 189, 248, 0.3),
+        transparent
+      );
+      opacity: 0.75; mix-blend-mode: screen;
+    }
+    .modules-layout {
+      display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.9fr); gap: 22px;
+    }
+    .module-tabs { display: flex; flex-direction: column; gap: 10px; }
+    .module-tab {
+      padding: 9px 11px; border-radius: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.83rem; text-align: left; cursor: pointer;
+      color: var(--text-muted);
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+    .module-tab span {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em;
+    }
+    .module-tab.active {
+      background: radial-gradient(circle at top left, var(--primary-soft), rgba(15, 23, 42, 1));
+      border-color: var(--primary); color: #e5e7eb;
+      transform: translateY(-1px); box-shadow: 0 16px 30px rgba(15, 23, 42, 0.9);
+    }
+    .module-content {
+      border-radius: 18px; padding: 16px 16px 14px;
+      background: radial-gradient(circle at top, rgba(37, 99, 235, 0.25), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      min-height: 190px; position: relative; overflow: hidden;
+    }
+    .module-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .module-tag {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--text-muted); margin-bottom: 10px;
+    }
+    .module-columns {
+      display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
+      gap: 18px; font-size: 0.84rem;
+    }
+    .module-columns ul { list-style: none; }
+    .module-columns li {
+      margin-bottom: 4px; padding-left: 12px; position: relative;
+    }
+    .module-columns li::before {
+      content: "›"; position: absolute; left: 0; color: #bfdbfe;
+    }
+    .module-outcome-pill {
+      padding: 7px 8px; border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 0.78rem; margin-bottom: 5px;
+    }
+    .module-graphic {
+      position: absolute; inset: auto -50px -40px auto;
+      width: 210px; height: 210px;
+      background:
+        radial-gradient(circle at top, rgba(248, 250, 252, 0.16), transparent 60%),
+        conic-gradient(from 210deg, rgba(37, 99, 235, 0.9), rgba(56, 189, 248, 0.9), rgba(37, 99, 235, 0.5));
+      border-radius: 999px; opacity: 0.75; mix-blend-mode: screen; filter: blur(1px);
+    }
+    .data-grid {
+      display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.8fr); gap: 22px;
+    }
+    .data-chart {
+      border-radius: 18px; padding: 14px 14px 12px;
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.6); font-size: 0.8rem;
+    }
+    .chart-bars {
+      margin-top: 10px; display: flex; gap: 8px; align-items: flex-end; height: 110px;
+    }
+    .bar {
+      flex: 1; border-radius: 999px 999px 4px 4px;
+      background: linear-gradient(to top, #22c55e, #4ade80);
+      position: relative; overflow: hidden;
+    }
+    .bar.secondary { background: linear-gradient(to top, #64748b, #94a3b8); }
+    .bar-label {
+      position: absolute; bottom: 4px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem; color: #020617; font-weight: 600;
+    }
+    .chart-caption { margin-top: 8px; color: var(--text-muted); font-size: 0.76rem; }
+    .data-list { font-size: 0.84rem; }
+    .data-list h4 { font-size: 0.86rem; margin-top: 6px; margin-bottom: 3px; }
+    .data-list ul { list-style: none; margin-bottom: 4px; }
+    .data-list li {
+      padding-left: 12px; position: relative; margin-bottom: 2px; color: var(--text-muted);
+    }
+    .data-list li::before { content: "•"; position: absolute; left: 0; color: var(--primary); }
+    .survey-grid {
+      display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr); gap: 20px;
+    }
+    .survey-list { font-size: 0.84rem; }
+    .survey-list li {
+      list-style: none; margin-bottom: 5px;
+      padding-left: 12px; position: relative; color: var(--text-muted);
+    }
+    .survey-list li::before { content: "–"; position: absolute; left: 0; color: #e5e7eb; }
+    .survey-card {
+      border-radius: 18px; padding: 14px;
+      background: radial-gradient(circle at top, rgba(37, 99, 235, 0.2), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.65); font-size: 0.8rem;
+    }
+    .survey-row {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px; padding: 7px 8px; border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      margin-bottom: 6px; border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+    .survey-row span { font-size: 0.76rem; }
+    .survey-scale { display: flex; gap: 3px; font-size: 0.7rem; color: var(--text-muted); }
+    .survey-dot {
+      width: 13px; height: 13px; border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+    }
+    .survey-dot.active {
+      background: var(--primary); border-color: #bfdbfe;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.9);
+    }
+    .supp-grid {
+      display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr); gap: 22px;
+    }
+    .supp-card {
+      border-radius: 16px; padding: 12px 12px 10px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      margin-bottom: 10px; font-size: 0.84rem;
+    }
+    .supp-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--text-muted); margin-bottom: 2px;
+    }
+    .supp-card h4 { font-size: 0.92rem; margin-bottom: 4px; }
+    .supp-card ul { list-style: none; }
+    .supp-card li {
+      padding-left: 12px; position: relative; margin-bottom: 2px;
+      color: var(--text-muted);
+    }
+    .supp-card li::before {
+      content: "•"; position: absolute; left: 0; color: var(--accent);
+    }
+    .supp-warning {
+      border-radius: 16px; padding: 12px;
+      background: rgba(127, 29, 29, 0.95);
+      border: 1px solid rgba(248, 113, 113, 0.9);
+      color: #fee2e2; font-size: 0.8rem;
+    }
+    .supp-warning h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    footer {
+      margin-top: 38px; padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.76rem; color: var(--text-muted);
+      display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .hero-visual { order: -1; }
+      .mission-grid, .about-grid, .modules-layout,
+      .data-grid, .survey-grid, .supp-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      nav ul { display: none; }
+      .stats-strip { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 600px) {
+      section { padding: 18px 16px; }
+      .page-wrap { padding: 18px 14px 40px; }
+    }
+  
+    .survey-option {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .survey-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .survey-option input:checked + .survey-dot {
+      background: var(--primary);
+      border-color: #bfdbfe;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.9);
+    }
+    .survey-result {
+      margin-top: 10px;
+      padding: 10px 11px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+    }
+    .survey-result h4 {
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+    .survey-result ul {
+      margin: 4px 0 0;
+      padding-left: 14px;
+    }
+    .survey-result li {
+      margin-bottom: 2px;
+    }
+
+  
+
+/* Edge / perimeter design accents */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.7;
+      filter: blur(1px);
+      background: radial-gradient(circle at center, var(--primary-soft), transparent 60%);
+    }
+    body::before {
+      top: 10%;
+      left: -8%;
+    }
+    body::after {
+      bottom: 5%;
+      right: -8%;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.45;
+      background: linear-gradient(
+        to bottom,
+        rgba(250, 204, 107, 0.0),
+        rgba(250, 204, 107, 0.18),
+        rgba(59, 130, 246, 0.35),
+        rgba(148, 163, 184, 0.18),
+        rgba(59, 130, 246, 0.3),
+        rgba(250, 204, 107, 0.0)
+      );
+    }
+    .page-shell::before {
+      left: 22px;
+    }
+    .page-shell::after {
+      right: 22px;
+    }
+
+    /* Section corner accents for extra depth */
+    .section-card,
+    .hero-grid,
+    .data-grid,
+    .module-grid,
+    .survey-grid {
+      position: relative;
+      overflow: hidden;
+    }
+    .section-card::before,
+    .section-card::after,
+    .hero-grid::before,
+    .hero-grid::after,
+    .data-grid::before,
+    .data-grid::after,
+    .module-grid::before,
+    .module-grid::after,
+    .survey-grid::before,
+    .survey-grid::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.16;
+      background: radial-gradient(circle at center, rgba(59, 130, 246, 0.4), transparent 65%);
+    }
+    .section-card::before,
+    .hero-grid::before,
+    .data-grid::before,
+    .module-grid::before,
+    .survey-grid::before {
+      top: -60px;
+      right: -40px;
+    }
+    .section-card::after,
+    .hero-grid::after,
+    .data-grid::after,
+    .module-grid::after,
+    .survey-grid::after {
+      bottom: -60px;
+      left: -40px;
+      background: radial-gradient(circle at center, rgba(250, 204, 107, 0.3), transparent 65%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #1f2933 0, #05090c 42%, #05090c 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page-wrap { max-width: 1180px; margin: 0 auto; padding: 20px 18px 60px; }
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(2, 6, 23, 0.95), rgba(2, 6, 23, 0.7));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .nav-inner {
+      max-width: 1180px; margin: 0 auto; padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo-mark { display: flex; align-items: center; gap: 10px; }
+    .logo-symbol {
+      width: 34px; height: 34px; border-radius: 999px;
+      background: conic-gradient(from 200deg, #22c55e, #38bdf8, #6366f1, #22c55e);
+      padding: 2px; position: relative;
+    }
+    .logo-symbol::after {
+      content: ""; position: absolute; inset: 2px; border-radius: inherit;
+      background: radial-gradient(circle at 30% 0, rgba(255, 255, 255, 0.3), rgba(15, 23, 42, 1) 55%);
+    }
+    .logo-text-main { font-weight: 700; letter-spacing: 0.12em; font-size: 0.9rem; text-transform: uppercase; }
+    .logo-text-sub { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.16em; }
+    nav ul {
+      list-style: none; display: flex; gap: 18px;
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em;
+    }
+    nav a {
+      padding-bottom: 4px; border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    nav a:hover, nav a.active { color: #f9fafb; border-color: var(--primary); }
+    .hero {
+      display: grid; grid-template-columns: minmax(0, 3.2fr) minmax(0, 2.8fr);
+      gap: 32px; margin-top: 28px; align-items: center;
+    }
+    .hero-left-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.18em;
+      background: rgba(7, 12, 20, 0.9); padding: 6px 12px; border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5); margin-bottom: 14px;
+    }
+    .hero-left-badge span {
+      width: 7px; height: 7px; border-radius: 999px; background: var(--accent);
+      box-shadow: 0 0 14px rgba(34, 197, 94, 0.95);
+    }
+    h1.hero-title {
+      font-size: clamp(2.4rem, 3vw + 1.1rem, 3.1rem);
+      line-height: 1.05; margin-bottom: 14px;
+    }
+    h1.hero-title span { color: #bfdbfe; }
+    .hero-subtitle {
+      font-size: 0.94rem; color: var(--text-muted);
+      max-width: 470px; margin-bottom: 22px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px 20px; border-radius: 999px; border: 1px solid transparent;
+      font-size: 0.86rem; font-weight: 500; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(to right, #0f766e, #22c1b4, #67e8f9);
+      color: #f9fafb;
+      box-shadow: 0 12px 30px rgba(59, 130, 246, 0.52);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 18px 45px rgba(37, 99, 235, 0.8); }
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.8); color: var(--text-main);
+      border-color: rgba(148, 163, 184, 0.55);
+    }
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 1); border-color: var(--primary); transform: translateY(-1px);
+    }
+    .hero-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-muted); }
+    .hero-visual { position: relative; isolation: isolate; }
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at top left, rgba(239, 246, 255, 0.12), rgba(15, 23, 42, 0.95));
+      border-radius: 26px; padding: 18px 18px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.6); box-shadow: var(--shadow-soft);
+      overflow: hidden; min-height: 260px;
+    }
+    .hero-card-tag {
+      font-size: 0.68rem; text-transform: uppercase; color: var(--text-muted);
+      letter-spacing: 0.18em; margin-bottom: 10px;
+    }
+    .hero-card-title {
+      font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.18em;
+      color: #e5e7eb; margin-bottom: 4px;
+    }
+    .hero-card-metric { font-size: 1.7rem; font-weight: 600; margin-bottom: 16px; }
+    .hero-card-metric span { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+    .hero-stats-row { display: flex; gap: 10px; margin-bottom: 16px; font-size: 0.75rem; }
+    .hero-stat-pill {
+      flex: 1; padding: 8px 9px; border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .hero-stat-label { color: var(--text-muted); font-size: 0.7rem; }
+    .hero-stat-value { font-weight: 500; }
+    .hero-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.75rem; color: var(--text-muted);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px;
+      border-radius: 999px; background: rgba(7, 12, 20, 0.9);
+      border: 1px solid rgba(34, 197, 94, 0.6); color: #bbf7d0; font-size: 0.7rem;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px; border-radius: 999px;
+      background: var(--accent); box-shadow: 0 0 12px rgba(34, 197, 94, 1);
+    }
+    .hero-image-abstract {
+      position: absolute; inset: auto 0 0 auto;
+      width: 72%; height: 58%; margin-right: -22px; margin-bottom: -18px;
+      background:
+        radial-gradient(circle at top left, rgba(248, 250, 252, 0.25), transparent 45%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.35), transparent 55%),
+        linear-gradient(125deg, rgba(7, 12, 20, 0.9), rgba(15, 23, 42, 0.98));
+      clip-path: polygon(0 8%, 60% 0, 100% 24%, 90% 100%, 8% 100%);
+      border-top: 1px solid rgba(148, 163, 184, 0.6);
+      border-left: 1px solid rgba(148, 163, 184, 0.3);
+      opacity: 0.9;
+    }
+    .hero-image-inner-lines {
+      position: absolute; inset: 12% 12% 10% 10%;
+      border-radius: 26px;
+      background-image: repeating-linear-gradient(
+        -20deg,
+        rgba(15, 23, 42, 0.1) 0px,
+        rgba(15, 23, 42, 0.1) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+      mix-blend-mode: soft-light; opacity: 0.75;
+    }
+    .hero-ambient-orb {
+      position: absolute; width: 160px; height: 160px; border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.5), transparent 60%);
+      top: -40px; right: -50px; filter: blur(2px); opacity: 0.8; pointer-events: none;
+    }
+    .stats-strip {
+      margin-top: 24px;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+    }
+    .stat-card {
+      background: rgba(10, 16, 25, 0.96);
+      border-radius: 999px; border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 9px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+    .stat-card strong { color: #e5e7eb; font-weight: 600; }
+    .stat-pill {
+      padding: 4px 9px; border-radius: 999px; font-size: 0.7rem;
+      background: rgba(37, 99, 235, 0.1); color: #bfdbfe;
+    }
+    section {
+      margin-top: 42px; padding: 26px 22px;
+      border-radius: 26px;
+      background: rgba(10, 16, 25, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-soft);
+    }
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 12px; margin-bottom: 16px;
+    }
+    .section-kicker {
+      text-transform: uppercase; font-size: 0.72rem;
+      letter-spacing: 0.18em; color: var(--text-muted); margin-bottom: 6px;
+    }
+    .section-title { font-size: 1.25rem; font-weight: 600; }
+    .section-subtitle {
+      font-size: 0.86rem; color: var(--text-muted); max-width: 460px;
+    }
+    .mission-grid {
+      display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 2fr); gap: 22px;
+    }
+    .mission-block {
+      background: radial-gradient(circle at top left, var(--primary-soft), rgba(10, 16, 25, 0.96));
+      padding: 16px 16px 15px; border-radius: var(--card-radius);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+    .mission-label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--text-muted); margin-bottom: 4px;
+    }
+    .mission-body { font-size: 0.92rem; font-weight: 500; }
+    .values-list {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px; margin-top: 4px;
+    }
+    .value-pill {
+      padding: 9px 10px; border-radius: 12px;
+      background: rgba(7, 12, 20, 0.9);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center;
+    }
+    .value-pill span { color: var(--text-muted); font-size: 0.72rem; }
+    .about-grid {
+      display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 2fr);
+      gap: 22px; align-items: flex-start;
+    }
+    .about-tagline { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; }
+    .about-p { font-size: 0.86rem; color: var(--text-main); margin-bottom: 8px; }
+    .about-list { margin-top: 8px; font-size: 0.84rem; color: var(--text-muted); }
+    .about-list li {
+      margin-bottom: 4px; list-style: none; position: relative; padding-left: 14px;
+    }
+    .about-list li::before { content: "•"; position: absolute; left: 0; color: var(--primary); }
+    .about-visual {
+      position: relative; border-radius: 22px; padding: 16px;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.2), transparent 55%),
+        linear-gradient(130deg, #020617, #020617 40%, #111827 100%);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      overflow: hidden; min-height: 210px;
+    }
+    .about-visual-title {
+      font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 10px;
+    }
+    .about-visual-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;
+      font-size: 0.78rem;
+    }
+    .about-chip {
+      background: rgba(7, 12, 20, 0.9); border-radius: 12px;
+      padding: 10px 9px; border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+    .about-chip-label {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--text-muted); margin-bottom: 3px;
+    }
+    .about-chip strong { font-size: 0.86rem; }
+    .about-visual-lines {
+      position: absolute; inset: 55% -80px -40px 40%;
+      background-image: linear-gradient(
+        120deg,
+        rgba(37, 99, 235, 0.45),
+        rgba(56, 189, 248, 0.3),
+        transparent
+      );
+      opacity: 0.75; mix-blend-mode: screen;
+    }
+    .modules-layout {
+      display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.9fr); gap: 22px;
+    }
+    .module-tabs { display: flex; flex-direction: column; gap: 10px; }
+    .module-tab {
+      padding: 9px 11px; border-radius: 12px;
+      background: rgba(7, 12, 20, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.83rem; text-align: left; cursor: pointer;
+      color: var(--text-muted);
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    }
+    .module-tab span {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em;
+    }
+    .module-tab.active {
+      background: radial-gradient(circle at top left, var(--primary-soft), rgba(15, 23, 42, 1));
+      border-color: var(--primary); color: #e5e7eb;
+      transform: translateY(-1px); box-shadow: 0 16px 30px rgba(7, 12, 20, 0.9);
+    }
+    .module-content {
+      border-radius: 18px; padding: 16px 16px 14px;
+      background: radial-gradient(circle at top, rgba(37, 99, 235, 0.25), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      min-height: 190px; position: relative; overflow: hidden;
+    }
+    .module-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .module-tag {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--text-muted); margin-bottom: 10px;
+    }
+    .module-columns {
+      display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.3fr);
+      gap: 18px; font-size: 0.84rem;
+    }
+    .module-columns ul { list-style: none; }
+    .module-columns li {
+      margin-bottom: 4px; padding-left: 12px; position: relative;
+    }
+    .module-columns li::before {
+      content: "›"; position: absolute; left: 0; color: #bfdbfe;
+    }
+    .module-outcome-pill {
+      padding: 7px 8px; border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 0.78rem; margin-bottom: 5px;
+    }
+    .module-graphic {
+      position: absolute; inset: auto -50px -40px auto;
+      width: 210px; height: 210px;
+      background:
+        radial-gradient(circle at top, rgba(248, 250, 252, 0.16), transparent 60%),
+        conic-gradient(from 210deg, rgba(37, 99, 235, 0.9), rgba(56, 189, 248, 0.9), rgba(37, 99, 235, 0.5));
+      border-radius: 999px; opacity: 0.75; mix-blend-mode: screen; filter: blur(1px);
+    }
+    .data-grid {
+      display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.8fr); gap: 22px;
+    }
+    .data-chart {
+      border-radius: 18px; padding: 14px 14px 12px;
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.6); font-size: 0.8rem;
+    }
+    .chart-bars {
+      margin-top: 10px; display: flex; gap: 8px; align-items: flex-end; height: 110px;
+    }
+    .bar {
+      flex: 1; border-radius: 999px 999px 4px 4px;
+      background: linear-gradient(to top, #22c55e, #4ade80);
+      position: relative; overflow: hidden;
+    }
+    .bar.secondary { background: linear-gradient(to top, #64748b, #94a3b8); }
+    .bar-label {
+      position: absolute; bottom: 4px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem; color: #020617; font-weight: 600;
+    }
+    .chart-caption { margin-top: 8px; color: var(--text-muted); font-size: 0.76rem; }
+    .data-list { font-size: 0.84rem; }
+    .data-list h4 { font-size: 0.86rem; margin-top: 6px; margin-bottom: 3px; }
+    .data-list ul { list-style: none; margin-bottom: 4px; }
+    .data-list li {
+      padding-left: 12px; position: relative; margin-bottom: 2px; color: var(--text-muted);
+    }
+    .data-list li::before { content: "•"; position: absolute; left: 0; color: var(--primary); }
+    .survey-grid {
+      display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.7fr); gap: 20px;
+    }
+    .survey-list { font-size: 0.84rem; }
+    .survey-list li {
+      list-style: none; margin-bottom: 5px;
+      padding-left: 12px; position: relative; color: var(--text-muted);
+    }
+    .survey-list li::before { content: "–"; position: absolute; left: 0; color: #e5e7eb; }
+    .survey-card {
+      border-radius: 18px; padding: 14px;
+      background: radial-gradient(circle at top, rgba(37, 99, 235, 0.2), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.65); font-size: 0.8rem;
+    }
+    .survey-row {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 8px; padding: 7px 8px; border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      margin-bottom: 6px; border: 1px solid rgba(148, 163, 184, 0.55);
+    }
+    .survey-row span { font-size: 0.76rem; }
+    .survey-scale { display: flex; gap: 3px; font-size: 0.7rem; color: var(--text-muted); }
+    .survey-dot {
+      width: 13px; height: 13px; border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(10, 16, 25, 0.96);
+    }
+    .survey-dot.active {
+      background: var(--primary); border-color: #bfdbfe;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.9);
+    }
+    .supp-grid {
+      display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr); gap: 22px;
+    }
+    .supp-card {
+      border-radius: 16px; padding: 12px 12px 10px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      margin-bottom: 10px; font-size: 0.84rem;
+    }
+    .supp-label {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--text-muted); margin-bottom: 2px;
+    }
+    .supp-card h4 { font-size: 0.92rem; margin-bottom: 4px; }
+    .supp-card ul { list-style: none; }
+    .supp-card li {
+      padding-left: 12px; position: relative; margin-bottom: 2px;
+      color: var(--text-muted);
+    }
+    .supp-card li::before {
+      content: "•"; position: absolute; left: 0; color: var(--accent);
+    }
+    .supp-warning {
+      border-radius: 16px; padding: 12px;
+      background: rgba(127, 29, 29, 0.95);
+      border: 1px solid rgba(248, 113, 113, 0.9);
+      color: #fee2e2; font-size: 0.8rem;
+    }
+    .supp-warning h4 { font-size: 0.9rem; margin-bottom: 4px; }
+    footer {
+      margin-top: 38px; padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.76rem; color: var(--text-muted);
+      display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .hero-visual { order: -1; }
+      .mission-grid, .about-grid, .modules-layout,
+      .data-grid, .survey-grid, .supp-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      nav ul { display: none; }
+      .stats-strip { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 600px) {
+      section { padding: 18px 16px; }
+      .page-wrap { padding: 18px 14px 40px; }
+    }
+  
+    .survey-option {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .survey-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .survey-option input:checked + .survey-dot {
+      background: var(--primary);
+      border-color: #bfdbfe;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.9);
+    }
+    .survey-result {
+      margin-top: 10px;
+      padding: 10px 11px;
+      border-radius: 14px;
+      background: rgba(10, 16, 25, 0.96);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.82rem;
+    }
+    .survey-result h4 {
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+    .survey-result ul {
+      margin: 4px 0 0;
+      padding-left: 14px;
+    }
+    .survey-result li {
+      margin-bottom: 2px;
+    }
+
+
+    
+
+/* === Advanced layout + motion enhancements === */
+    .section-band {
+      padding: 40px 0 10px;
+      border-top: 1px solid rgba(148, 163, 184, 0.16);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.6);
+    }
+    .section-band:nth-of-type(odd) {
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.06), transparent 55%);
+    }
+    .section-band:nth-of-type(even) {
+      background: radial-gradient(circle at top right, rgba(250, 204, 107, 0.05), transparent 55%);
+    }
+    .section-intro {
+      max-width: 620px;
+      margin-bottom: 18px;
+    }
+    .section-intro p {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .pill-tag {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.96));
+      color: var(--text-muted);
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px) {
+      .timeline-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .timeline-steps {
+      position: relative;
+      padding-left: 20px;
+      border-left: 1px dashed rgba(148, 163, 184, 0.45);
+    }
+    .timeline-step {
+      position: relative;
+      padding: 10px 12px 10px 14px;
+      margin-bottom: 10px;
+      border-radius: 14px;
+      background: linear-gradient(120deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.98));
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.38);
+    }
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: 2px solid rgba(103, 232, 249, 0.7);
+      background: var(--bg-main);
+      left: -24px;
+      top: 13px;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.18);
+    }
+    .timeline-step-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+    .timeline-step-caption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .timeline-step-list {
+      font-size: 0.78rem;
+      padding-left: 14px;
+      margin: 3px 0 0;
+    }
+    .timeline-pane {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top, rgba(59, 130, 246, 0.18), rgba(10, 16, 25, 0.98));
+      padding: 14px 14px 16px;
+    }
+    .timeline-pane-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .timeline-pane-body {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .timeline-pane-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+    .timeline-pane-pill {
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 6px 8px;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .sports-matrix {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    @media (max-width: 1000px) {
+      .sports-matrix {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 700px) {
+      .sports-matrix {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .sport-card {
+      border-radius: 16px;
+      padding: 10px 11px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top, rgba(59, 130, 246, 0.08), rgba(10, 16, 25, 0.97));
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sport-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .sport-line {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+    .sport-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .sport-tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1.15fr);
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .testimonial-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .testimonial-quote {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.15), rgba(10, 16, 25, 0.98));
+      padding: 14px;
+      font-size: 0.82rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-quote::before {
+      content: "“";
+      position: absolute;
+      top: -26px;
+      left: 10px;
+      font-size: 4rem;
+      color: rgba(15, 23, 42, 0.85);
+    }
+    .testimonial-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .testimonial-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .testimonial-pill {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.96);
+    }
+    .testimonial-panel {
+      border-radius: 18px;
+      padding: 12px 13px;
+      border: 1px solid rgba(148, 163, 184, 0.38);
+      background: radial-gradient(circle at top, rgba(3, 7, 18, 0.88), rgba(3, 7, 18, 0.98));
+      font-size: 0.8rem;
+    }
+    .testimonial-panel h4 {
+      font-size: 0.86rem;
+      margin-bottom: 4px;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 18px;
+    }
+    @media (max-width: 900px) {
+      .faq-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    .faq-intro-block {
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+      background: radial-gradient(circle at top, rgba(59, 130, 246, 0.12), rgba(10, 16, 25, 0.98));
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.8rem;
+    }
+    .faq-list {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(10, 16, 25, 0.98);
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.8rem;
+    }
+    .faq-item {
+      border-radius: 12px;
+      padding: 8px 9px;
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.09), rgba(10, 16, 25, 0.98));
+    }
+    .faq-q {
+      font-weight: 600;
+      font-size: 0.8rem;
+      margin-bottom: 2px;
+    }
+    .faq-a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.6s ease-out;
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Minor custom scrollbar for desktop */
+    @media (min-width: 900px) {
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #020617;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, rgba(59, 130, 246, 0.6), rgba(15, 23, 42, 0.95));
+        border-radius: 999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, rgba(59, 130, 246, 0.9), rgba(15, 23, 42, 1));
+      }
+    }
+
+
+  
+</style><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ACPP – Athletic Cognitive Performance Program</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="logo-mark">
+        <div class="logo-symbol"></div>
+        <div>
+          <div class="logo-text-main">ACPP</div>
+          <div class="logo-text-sub">Athletic Cognitive Performance Program</div>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#top" class="active">Home</a></li>
+          <li><a href="#mission">Mission</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#modules">Training</a></li>
+          <li><a href="#data">Research</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+          <li><a href="#survey">Survey</a></li>
+          <li><a href="#supplements">Supplements</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-wrap" id="top">
+    <section style="margin-top:24px;">
+      <div class="hero">
+        <div>
+          <div class="hero-left-badge">
+            <span></span>
+            <div>Elite cognitive systems for athletes</div>
+          </div>
+          <h1 class="hero-title">
+            ATHLETIC COGNITIVE<br />
+            PERFORMANCE <span>PROGRAM</span>
+          </h1>
+          <p class="hero-subtitle">
+            A performance-driven system that trains reaction speed, situational awareness, and decision-making under pressure—using neuroscience, cognitive psychology, and elite tactical principles.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="scrollToSection('modules')">
+              Start Training
+            </button>
+            <button class="btn btn-ghost" onclick="scrollToSection('mission')">
+              View Mission &amp; Values
+            </button>
+          </div>
+          <div class="hero-meta">
+            Built for athletes who compete in chaos—not comfort.
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-tag">Simulated Performance Snapshot</div>
+            <div class="hero-card-title">Reaction Time After ACPP</div>
+            <div class="hero-card-metric">
+              21% faster <span>vs. baseline</span>
+            </div>
+
+            <div class="hero-stats-row">
+              <div class="hero-stat-pill">
+                <div class="hero-stat-label">Decision Errors</div>
+                <div class="hero-stat-value">–32%</div>
+              </div>
+              <div class="hero-stat-pill">
+                <div class="hero-stat-label">Awareness</div>
+                <div class="hero-stat-value">+18% field coverage</div>
+              </div>
+            </div>
+
+            <div class="hero-card-footer">
+              <div class="hero-badge">
+                <span class="hero-badge-dot"></span>
+                Live cognitive load reduced
+              </div>
+              <div>Session type: <strong>High-pressure scrimmage</strong></div>
+            </div>
+
+            <div class="hero-image-abstract">
+              <div class="hero-image-inner-lines"></div>
+            </div>
+            <div class="hero-ambient-orb"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-strip">
+        <div class="stat-card">
+          <div>
+            <strong>Reaction Speed</strong><br />
+            Split-second processing and execution drills.
+          </div>
+          <div class="stat-pill">Think faster</div>
+        </div>
+        <div class="stat-card">
+          <div>
+            <strong>Situational Awareness</strong><br />
+            See the field, predict patterns, stay ahead.
+          </div>
+          <div class="stat-pill">See more</div>
+        </div>
+        <div class="stat-card">
+          <div>
+            <strong>Stress Control</strong><br />
+            Perform in chaos without mentally breaking.
+          </div>
+          <div class="stat-pill">Stay calm</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mission">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Mission &amp; Values</div>
+          <div class="section-title">Why ACPP Exists</div>
+        </div>
+        <div class="section-subtitle">
+          ACPP treats cognition as a trainable skill set—not a mystery. The goal is simple: athletes who can think at game-speed when everything is on the line.
+        </div>
+      </div>
+
+      <div class="mission-grid">
+        <div>
+          <div class="mission-block">
+            <div class="mission-label">Mission</div>
+            <div class="mission-body">
+              To develop athletes who think faster, see more, and make sharper decisions under pressure.
+            </div>
+          </div>
+          <div class="mission-block" style="margin-top:12px;">
+            <div class="mission-label">Vision</div>
+            <div class="mission-body">
+              To redefine athletic competition by elevating cognitive performance—not just physical ability—as a core part of training and long-term success.
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="mission-block">
+            <div class="mission-label">Purpose</div>
+            <ul class="about-list">
+              <li>Increase competitive advantage through faster cognitive processing.</li>
+              <li>Improve athlete safety by enhancing awareness and prediction.</li>
+              <li>Strengthen mental resilience under high-stress competition.</li>
+            </ul>
+          </div>
+          <div class="mission-block" style="margin-top:12px;">
+            <div class="mission-label">Values</div>
+            <div class="values-list">
+              <div class="value-pill">
+                Precision
+                <span>clear execution</span>
+              </div>
+              <div class="value-pill">
+                Resilience
+                <span>calm under fire</span>
+              </div>
+              <div class="value-pill">
+                Discipline
+                <span>mastery through reps</span>
+              </div>
+              <div class="value-pill">
+                Clarity
+                <span>no mental noise</span>
+              </div>
+              <div class="value-pill">
+                Adaptability
+                <span>instant adjustment</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">About Me</div>
+          <div class="section-title">Who I Am &amp; Why I Built This</div>
+        </div>
+        <div class="section-subtitle">
+          ACPP comes out of real-world environments where awareness, pattern recognition, and instant decisions were never optional.
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div>
+          <p class="about-tagline">
+            I’ve lived and operated in environments where staying alert and thinking fast meant everything—international travel, global risk settings, and intelligence-focused academic work.
+          </p>
+          <p class="about-p">
+            Athletes face a similar reality: pressure, chaos, unpredictability, and the demand to perform instantly. Physical training alone doesn’t solve that.
+          </p>
+
+          <h4 style="font-size:0.9rem; margin-top:10px; margin-bottom:4px;">Background</h4>
+          <ul class="about-list">
+            <li>International experience in high-stress environments (Guatemala, Malawi, and more).</li>
+            <li>Academic background in intelligence, cognition, psychology, and decision-making.</li>
+            <li>Personal interest in elite performance optimization and discipline.</li>
+          </ul>
+
+          <h4 style="font-size:0.9rem; margin-top:10px; margin-bottom:4px;">Why Cognitive Training Matters</h4>
+          <ul class="about-list">
+            <li>Physical training alone doesn’t produce elite athletes.</li>
+            <li>Mental sharpness is the true separator at the top levels.</li>
+            <li>Decision speed equals competitive advantage.</li>
+          </ul>
+
+          <h4 style="font-size:0.9rem; margin-top:10px; margin-bottom:4px;">Why I Built ACPP</h4>
+          <ul class="about-list">
+            <li>To merge tactical cognitive training with sport-specific performance.</li>
+            <li>To build a structured, science-backed system athletes can follow.</li>
+            <li>To help athletes outperform competitors mentally, not just physically.</li>
+          </ul>
+        </div>
+
+        <div class="about-visual">
+          <div class="about-visual-title">Cognitive Environment Snapshot</div>
+          <div class="about-visual-grid">
+            <div class="about-chip">
+              <div class="about-chip-label">Global Field</div>
+              <strong>High-risk contexts</strong>
+              <div style="font-size:0.74rem; color:var(--text-muted);">
+                Operating in unpredictable environments where every decision has real stakes.
+              </div>
+            </div>
+            <div class="about-chip">
+              <div class="about-chip-label">Athletic Parallel</div>
+              <strong>Game-speed chaos</strong>
+              <div style="font-size:0.74rem; color:var(--text-muted);">
+                Athletes navigate pressure, speed, and limited information every play.
+              </div>
+            </div>
+            <div class="about-chip">
+              <div class="about-chip-label">Core Skill</div>
+              <strong>Pattern recognition</strong>
+              <div style="font-size:0.74rem; color:var(--text-muted);">
+                Reading cues quickly enough to act before the obvious play appears.
+              </div>
+            </div>
+            <div class="about-chip">
+              <div class="about-chip-label">Outcome</div>
+              <strong>Decisions under stress</strong>
+              <div style="font-size:0.74rem; color:var(--text-muted);">
+                The difference between hesitation and decisive execution.
+              </div>
+            </div>
+          </div>
+          <div class="about-visual-lines"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Training System</div>
+          <div class="section-title">ACPP Cognitive Modules</div>
+        </div>
+        <div class="section-subtitle">
+          Each module targets a different cognitive pillar—reaction, focus, stress control, and situational awareness—so athletes can train the brain as intentionally as they train the body.
+        </div>
+      </div>
+
+      <div class="modules-layout">
+        <div class="module-tabs">
+          <button class="module-tab active" data-module="reaction">
+            <div>
+              Reaction Speed
+              <div style="font-size:0.72rem; color:var(--text-muted); margin-top:1px;">Split-second processing</div>
+            </div>
+            <span>01</span>
+          </button>
+          <button class="module-tab" data-module="focus">
+            <div>
+              Focus Training
+              <div style="font-size:0.72rem; color:var(--text-muted); margin-top:1px;">Distraction resistance</div>
+            </div>
+            <span>02</span>
+          </button>
+          <button class="module-tab" data-module="stress">
+            <div>
+              Stress Control
+              <div style="font-size:0.72rem; color:var(--text-muted); margin-top:1px;">Calm in chaos</div>
+            </div>
+            <span>03</span>
+          </button>
+          <button class="module-tab" data-module="awareness">
+            <div>
+              Situational Awareness
+              <div style="font-size:0.72rem; color:var(--text-muted); margin-top:1px;">Read the whole field</div>
+            </div>
+            <span>04</span>
+          </button>
+        </div>
+
+        <div class="module-content" id="module-content">
+          <div class="module-title">Reaction Speed</div>
+          <div class="module-tag">Split-second cognitive processing drills</div>
+          <div class="module-columns">
+            <div>
+              <ul>
+                <li>Light-board style reaction exercises.</li>
+                <li>Pattern recognition and rapid prediction tasks.</li>
+                <li>Neuro-motor rewiring through high-repetition drills.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="module-outcome-pill">Outcome: faster decision execution.</div>
+              <div class="module-outcome-pill">Outcome: improved coordination.</div>
+              <div class="module-outcome-pill">Outcome: reduced hesitation when it matters most.</div>
+            </div>
+          </div>
+          <div class="module-graphic"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="data">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Data &amp; Research</div>
+          <div class="section-title">Why This Works</div>
+        </div>
+        <div class="section-subtitle">
+          ACPP ties into existing sports neuroscience, cognitive fatigue research, and reaction time studies to build a framework that is evidence-aware—not random.
+        </div>
+      </div>
+
+      <div class="data-grid">
+        <div class="data-chart">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div class="mission-label" style="margin-bottom:2px;">Illustrative Chart</div>
+              <div style="font-size:0.9rem; font-weight:500;">Reaction Time Before vs. After Training</div>
+            </div>
+            <div style="font-size:0.72rem; color:var(--text-muted);">Lower is better</div>
+          </div>
+          <div class="chart-bars">
+            <div class="bar secondary" style="height:95%;">
+              <div class="bar-label">Baseline</div>
+            </div>
+            <div class="bar" style="height:74%;">
+              <div class="bar-label">Post-ACPP</div>
+            </div>
+          </div>
+          <div class="chart-caption">
+            Structured cognitive drills can shorten reaction times while also reducing error rates. The goal is not just speed, but accurate speed under stress.
+          </div>
+        </div>
+
+        <div class="data-list">
+          <h4>Focus of the Research Layer</h4>
+          <ul>
+            <li>How ATP influences brain function and cognition (linking to creatine and cellular energy).</li>
+            <li>Sports neuroscience findings around attention, anticipation, and decision-making.</li>
+            <li>Cognitive fatigue: how mental overload degrades performance late in games.</li>
+            <li>Reaction time studies comparing elite vs. amateur athletes.</li>
+          </ul>
+
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>Decision errors drop with structured cognitive drills.</li>
+            <li>Mental sharpness and pattern recognition correlate with performance outcomes.</li>
+            <li>Awareness training reduces injuries by improving prediction and spacing.</li>
+            <li>Stress-regulated athletes perform more consistently across full games and seasons.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="roadmap" class="section-band">
+      <div class="page-shell">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Implementation</div>
+            <div class="section-title">ACPP Integration Roadmap</div>
+          </div>
+          <div class="section-subtitle">
+            A simple, staged rollout so coaches, teams, and individual athletes can plug ACPP into existing training without blowing up the calendar.
+          </div>
+        </div>
+        <div class="timeline-grid reveal-on-scroll">
+          <div class="timeline-steps">
+            <div class="timeline-step">
+              <div class="timeline-step-title">Phase 1 — Baseline & Language</div>
+              <div class="timeline-step-caption">Week 1 · 1–2 sessions</div>
+              <ul class="timeline-step-list">
+                <li>Introduce the four cognitive pillars: Reaction, Focus, Awareness, Stress Control.</li>
+                <li>Run the ACPP survey for a baseline benchmark.</li>
+                <li>Pick one game or practice film to tag “cognitive moments” instead of just physical errors.</li>
+              </ul>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-step-title">Phase 2 — Drill Layering</div>
+              <div class="timeline-step-caption">Weeks 2–4 · 1–2 inserts per practice</div>
+              <ul class="timeline-step-list">
+                <li>Attach 5–10 minute cognitive inserts to existing conditioning and skill drills.</li>
+                <li>Rotate focus: one day Reaction + Focus, another day Stress + Awareness.</li>
+                <li>Track simple metrics: decision errors, blown coverages, late reads.</li>
+              </ul>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-step-title">Phase 3 — Live Pressure Blocks</div>
+              <div class="timeline-step-caption">Weeks 4–8 · High-pressure segments</div>
+              <ul class="timeline-step-list">
+                <li>Add scripted “chaos” scenarios: time crunch, score pressure, noise, and surprise constraints.</li>
+                <li>Coach the cognitive response, not just the tactical one.</li>
+                <li>Re-run the survey and compare cognitive profile shifts.</li>
+              </ul>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-step-title">Phase 4 — Sustain & Scale</div>
+              <div class="timeline-step-caption">Season-long · Maintenance</div>
+              <ul class="timeline-step-list">
+                <li>Build short, repeatable pre-game and post-game cognitive routines.</li>
+                <li>Lock in 1–2 “non-negotiable” ACPP drills that stay in every week.</li>
+                <li>Expand to junior teams, new position groups, or off-season training blocks.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="timeline-pane">
+            <div class="timeline-pane-title">Who This Roadmap Is Built For</div>
+            <div class="timeline-pane-body">
+              Whether you are a head coach, position coach, strength staff, or individual athlete, the phases are intentionally lightweight.
+            </div>
+            <div class="timeline-pane-grid">
+              <div class="timeline-pane-pill">
+                <strong>High school & club teams</strong>
+                <div>Layer 10–15 minutes of cognitive work into normal practices.</div>
+              </div>
+              <div class="timeline-pane-pill">
+                <strong>Collegiate programs</strong>
+                <div>Use ACPP as a bridge between sports psych, film, and on-field drills.</div>
+              </div>
+              <div class="timeline-pane-pill">
+                <strong>Individual athletes</strong>
+                <div>Run a “micro-ACPP”: one module per week with journaling and survey check-ins.</div>
+              </div>
+              <div class="timeline-pane-pill">
+                <strong>Performance staff</strong>
+                <div>Connect ACPP metrics to existing KPIs: turnovers, fouls, late rotations, and reaction time.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section id="survey">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Engagement Tool</div>
+          <div class="section-title">Athlete Cognitive Profile Survey</div>
+        </div>
+        <div class="section-subtitle">
+          Use this quick check-in to get a simple, honest snapshot of your cognitive game. Rate each statement from 1–5 (1 = strongly disagree, 5 = strongly agree), then generate a plan tied directly to the ACPP modules.
+        </div>
+      </div>
+
+      <div class="survey-grid">
+        <div>
+          <h4 style="font-size:0.9rem; margin-bottom:6px;">What This Measures</h4>
+          <ul class="survey-list">
+            <li>Decision speed and confidence in live play.</li>
+            <li>Ability to stay locked in when the environment is loud or chaotic.</li>
+            <li>Situational awareness: reading space, patterns, and opponents.</li>
+            <li>Stress and nervous system control under pressure.</li>
+            <li>Emotional reset after mistakes, bad calls, or momentum swings.</li>
+          </ul>
+          <p style="margin-top:8px; font-size:0.78rem; color:var(--text-muted);">
+            This is not a diagnosis—just a starting point. The goal is to expose blind spots and connect you to the right ACPP modules.
+          </p>
+        </div>
+
+        <div class="survey-card">
+          <form id="acpp-survey">
+            <div class="mission-label" style="margin-bottom:6px;">Quick Self-Assessment</div>
+
+            <div class="survey-row">
+              <span>Under pressure, I make fast decisions I’m confident in.</span>
+              <div class="survey-scale">
+                <label class="survey-option">
+                  <input type="radio" name="q1" value="1" required />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q1" value="2" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q1" value="3" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q1" value="4" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q1" value="5" />
+                  <span class="survey-dot"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="survey-row">
+              <span>I can stay fully focused even when the environment is loud or distracting.</span>
+              <div class="survey-scale">
+                <label class="survey-option">
+                  <input type="radio" name="q2" value="1" required />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q2" value="2" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q2" value="3" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q2" value="4" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q2" value="5" />
+                  <span class="survey-dot"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="survey-row">
+              <span>I regularly see open space and patterns before other players do.</span>
+              <div class="survey-scale">
+                <label class="survey-option">
+                  <input type="radio" name="q3" value="1" required />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q3" value="2" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q3" value="3" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q3" value="4" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q3" value="5" />
+                  <span class="survey-dot"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="survey-row">
+              <span>My nerves are under control before and during big games.</span>
+              <div class="survey-scale">
+                <label class="survey-option">
+                  <input type="radio" name="q4" value="1" required />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q4" value="2" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q4" value="3" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q4" value="4" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q4" value="5" />
+                  <span class="survey-dot"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="survey-row">
+              <span>After a mistake or bad call, I reset quickly and stay locked in.</span>
+              <div class="survey-scale">
+                <label class="survey-option">
+                  <input type="radio" name="q5" value="1" required />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q5" value="2" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q5" value="3" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q5" value="4" />
+                  <span class="survey-dot"></span>
+                </label>
+                <label class="survey-option">
+                  <input type="radio" name="q5" value="5" />
+                  <span class="survey-dot"></span>
+                </label>
+              </div>
+            </div>
+
+            <div style="margin-top:6px; font-size:0.72rem; color:var(--text-muted);">
+              1 = Strongly disagree · 3 = Neutral · 5 = Strongly agree
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px; justify-content:center;">
+              Generate My Cognitive Plan
+            </button>
+          </form>
+
+          <div id="survey-result" class="survey-result" style="display:none;"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="supplements">
+      <div class="section-header">
+        <div>
+          <div class="section-kicker">Recovery &amp; Support</div>
+          <div class="section-title">Supplements for Cognition, Energy &amp; Clarity</div>
+        </div>
+        <div class="section-subtitle">
+          This section highlights clean, personally used choices that support brain function, recovery, and long-term health—without pretending supplements replace discipline.
+        </div>
+      </div>
+
+      <div class="supp-grid">
+        <div>
+          <div class="supp-card">
+            <div class="supp-label">Protein</div>
+            <h4>Levels Grass-Fed Double Chocolate Protein</h4>
+            <ul>
+              <li>Clean protein source for post-training recovery.</li>
+              <li>Bedtime protein (20–40g) supports overnight repair.</li>
+              <li>Dark chocolate provides polyphenols with antioxidant and anti-inflammatory effects.</li>
+              <li>Supports hormonal balance and cellular longevity over time.</li>
+            </ul>
+          </div>
+
+          <div class="supp-card">
+            <div class="supp-label">Creatine</div>
+            <h4>Blueprint Creatine (Bryan Johnson)</h4>
+            <ul>
+              <li>5g every morning focused on brain and cellular energy.</li>
+              <li>Supports ATP production → better memory, reaction, and mental clarity.</li>
+              <li>Contributes to cellular hydration and may help with chronic fatigue.</li>
+              <li>Chosen specifically to avoid heavy metal contamination common in lower-quality creatines.</li>
+            </ul>
+          </div>
+
+          <div class="supp-card">
+            <div class="supp-label">Micronutrients</div>
+            <h4>Magnesium, Vitamin C, Zinc, Vitamin D3</h4>
+            <ul>
+              <li>Often taken before bed to support recovery and sleep quality.</li>
+              <li>Magnesium supports deep sleep and neuromuscular function.</li>
+              <li>Vitamin C and zinc bolster immune function and tissue repair.</li>
+              <li>Vitamin D3 supports bone health and hormonal regulation.</li>
+            </ul>
+          </div>
+
+          <div class="supp-card">
+            <div class="supp-label">Herbal Support</div>
+            <h4>Dandelion Root Tea</h4>
+            <ul>
+              <li>Used for gentle detox and liver support.</li>
+              <li>Contains compounds with anti-inflammatory properties.</li>
+              <li>Supports digestion and immune health.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <div class="supp-warning">
+            <h4>Critical Note on Supplement Safety</h4>
+            <p style="margin-bottom:6px;">
+              ACPP treats supplements as tools, not magic fixes. Long-term health depends on quality and honesty:
+            </p>
+            <ul style="list-style:none; padding-left:0;">
+              <li style="margin-bottom:4px;">
+                • Many commercial protein powders and creatines contain heavy metals such as cadmium, aluminum, and lead.
+              </li>
+              <li style="margin-bottom:4px;">
+                • A lot of supplements are filled with anti-caking agents and fillers—like silicon dioxide—that are harmless in tiny doses but concerning in large, processed-food-heavy diets.
+              </li>
+              <li style="margin-bottom:4px;">
+                • Most thyroid “fixes” only try to quiet symptoms instead of addressing underlying autoimmune drivers (such as Hashimoto’s).
+              </li>
+            </ul>
+            <p>
+              The goal of this page is not to prescribe, but to educate—so athletes can make informed, evidence-aware choices instead of blindly following marketing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>© ACPP — Athletic Cognitive Performance Program.</div>
+      <div>Where mental precision drives physical performance.</div>
+    </footer>
+  </main>
+
+  <script>
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    document.querySelectorAll("header nav a").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        document.querySelectorAll("header nav a").forEach((l) => l.classList.remove("active"));
+        e.target.classList.add("active");
+      });
+    });
+    const moduleContent = document.getElementById("module-content");
+    const moduleTabs = document.querySelectorAll(".module-tab");
+
+    const moduleData = {
+      reaction: {
+        title: "Reaction Speed",
+        tag: "Split-second cognitive processing drills",
+        left: [
+          "Light-board style reaction exercises.",
+          "Pattern recognition and rapid prediction tasks.",
+          "Neuro-motor rewiring through high-repetition drills."
+        ],
+        right: [
+          "Outcome: faster decision execution.",
+          "Outcome: improved coordination.",
+          "Outcome: reduced hesitation when it matters most."
+        ]
+      },
+      focus: {
+        title: "Focus Training",
+        tag: "Cognitive load reduction & distraction resistance",
+        left: [
+          "Drills that simulate noisy, high-distraction environments.",
+          "Selective attention tasks that force athletes to lock onto key cues.",
+          "Progressive training that extends focus duration over time."
+        ],
+        right: [
+          "Outcome: longer periods of locked-in concentration.",
+          "Outcome: reduced mental fatigue during long matches or tournaments.",
+          "Outcome: cleaner execution in the final minutes, not just the first."
+        ]
+      },
+      stress: {
+        title: "Stress Control",
+        tag: "Breathing, micro-recovery & pre-competition regulation",
+        left: [
+          "Breathing protocols that stabilize heart rate and calm the nervous system.",
+          "Micro-recovery routines inserted between high-intensity efforts.",
+          "Mental scripts and pre-competition routines to stabilize mindset."
+        ],
+        right: [
+          "Outcome: higher consistency under pressure.",
+          "Outcome: fewer emotional spikes and ‘choking’ moments.",
+          "Outcome: more efficient emotional regulation after mistakes."
+        ]
+      },
+      awareness: {
+        title: "Situational Awareness",
+        tag: "Scanning, prediction & spatial mapping",
+        left: [
+          "Spatial scanning drills that train athletes to sweep the field efficiently.",
+          "Opponent prediction work—reading tendencies and likely outcomes.",
+          "Peripheral awareness training to track multiple moving pieces at once."
+        ],
+        right: [
+          "Outcome: better anticipation of plays before they unfold.",
+          "Outcome: faster tactical adjustments mid-play or mid-game.",
+          "Outcome: fewer spacing errors and collision risks."
+        ]
+      }
+    };
+
+    moduleTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        moduleTabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        const key = tab.getAttribute("data-module");
+        const data = moduleData[key];
+
+        if (data) {
+          moduleContent.innerHTML = `
+            <div class="module-title">${data.title}</div>
+            <div class="module-tag">${data.tag}</div>
+            <div class="module-columns">
+              <div>
+                <ul>
+                  ${data.left.map((item) => `
+                    <li>${item}</li>
+                  `).join("")}
+                </ul>
+              </div>
+              <div>
+                ${data.right.map((item) => `
+                  <div class="module-outcome-pill">${item}</div>
+                `).join("")}
+              </div>
+            </div>
+            <div class="module-graphic"></div>
+          `;
+        }
+      });
+    });
+  
+    (function () {
+      const surveyForm = document.getElementById("acpp-survey");
+      if (!surveyForm) return;
+
+      surveyForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const data = new FormData(surveyForm);
+        const keys = ["q1", "q2", "q3", "q4", "q5"];
+        let scores = {};
+        let total = 0;
+
+        keys.forEach((key) => {
+          const value = Number(data.get(key) || 0);
+          scores[key] = value;
+          total += value;
+        });
+
+        const avg = total / keys.length;
+        let profile = "";
+        let summary = "";
+
+        if (avg >= 4.2) {
+          profile = "Tier 1 – High-Performance Cognitive Profile";
+          summary =
+            "You’re already operating at a high cognitive level. Your edge now comes from micro-optimizations: advanced situational reads, stress-testing your focus, and mixing scenarios that combine pressure with awareness work.";
+        } else if (avg >= 3.2) {
+          profile = "Tier 2 – Solid Foundation With Gaps";
+          summary =
+            "You have a strong base, but there are clear pockets where pressure, distraction, or awareness still leak performance. Targeted work on your weaker pillars will have the biggest return.";
+        } else {
+          profile = "Tier 3 – High Upside, Underdeveloped";
+          summary =
+            "You’re leaving a lot of performance on the table—but that also means huge upside. Start with basic regulation, awareness, and clean decision drills before layering on complexity.";
+        }
+
+        const focusAreas = [];
+        if (scores.q1 <= 3) focusAreas.push("Reaction Speed & decision drills (ACPP Reaction module).");
+        if (scores.q2 <= 3) focusAreas.push("Focus Training & distraction resistance (ACPP Focus module).");
+        if (scores.q3 <= 3) focusAreas.push("Situational Awareness & scanning work (ACPP Awareness module).");
+        if (scores.q4 <= 3) focusAreas.push("Stress Control, breathing protocols & pre-game regulation (ACPP Stress module).");
+        if (scores.q5 <= 3) focusAreas.push("Emotional reset routines and post-error recovery (blend of Stress + Focus modules).");
+
+        let planHtml = "";
+        if (focusAreas.length) {
+          planHtml =
+            "<ul>" +
+            focusAreas
+              .map((item) => "<li>" + item + "</li>")
+              .join("") +
+            "</ul>";
+        } else {
+          planHtml =
+            "<p>You’re balanced across all four pillars. Rotate through Reaction, Focus, Stress Control, and Situational Awareness modules to maintain your edge and push your ceiling higher.</p>";
+        }
+
+        const resultEl = document.getElementById("survey-result");
+        if (resultEl) {
+          resultEl.style.display = "block";
+          resultEl.innerHTML =
+            "<h4>" + profile + "</h4>" +
+            "<p>" + summary + "</p>" +
+            "<p><strong>Suggested focus:</strong></p>" +
+            planHtml +
+            '<p style="margin-top:6px; font-size:0.78rem; color:var(--text-muted);">Use this as a baseline. Re-take the survey after a few weeks of ACPP training to track how your cognitive profile shifts.</p>';
+        }
+      });
+    })();
+
+  
+
+// IntersectionObserver for scroll-based nav highlighting
+    (function () {
+      const navLinks = Array.from(document.querySelectorAll("header nav a"));
+      const sectionTargets = navLinks
+        .map((link) => {
+          const href = link.getAttribute("href");
+          if (!href || !href.startsWith("#")) return null;
+          const el = document.querySelector(href === "#top" ? "main#top" : href);
+          return el || null;
+        })
+        .filter(Boolean);
+
+      if (sectionTargets.length === 0) return;
+
+      const linkById = {};
+      navLinks.forEach((link) => {
+        const href = link.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          const id = href === "#top" ? "top" : href.slice(1);
+          linkById[id] = link;
+        }
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.id;
+            if (!id || !linkById[id]) return;
+            navLinks.forEach((l) => l.classList.remove("active"));
+            linkById[id].classList.add("active");
+          });
+        },
+        {
+          root: null,
+          threshold: 0.35,
+        }
+      );
+
+      sectionTargets.forEach((sectionEl) => observer.observe(sectionEl));
+    })();
+
+    // Reveal-on-scroll animation
+    (function () {
+      const revealEls = Array.from(document.querySelectorAll(".reveal-on-scroll"));
+      if (!("IntersectionObserver" in window) || revealEls.length === 0) {
+        revealEls.forEach((el) => el.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          root: null,
+          threshold: 0.25,
+        }
+      );
+
+      revealEls.forEach((el) => observer.observe(el));
+    })();
+
+  
+</script>
+</body>
+</html>
